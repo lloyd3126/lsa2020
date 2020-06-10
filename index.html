@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        *{
+            font-family: '微軟正黑體';
+        }
+        .mySlides {display:none;}
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <title>2020 行為序列分析結果</title>
+</head>
+<body>
+    <div id="app">
+        <!-- As a heading -->
+        <nav class="sticky-top navbar navbar-dark bg-dark mb-3 d-flex justify-content-center">
+            <span class="navbar-brand mb-0 h1">
+                2019-2020 空間創造力暨潛能開發營 - 2020 行為序列分析結果
+            </span>
+            
+        </nav>
+        <div class="d-flex justify-content-center m-4">
+            <div class="p-3">
+                <div class="form-check form-check-inline">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-dark" @click="selectalllevels">全選</button>
+                        <button type="button" class="btn btn-outline-dark" @click="unselectalllevels">全不選</button>
+                    </div>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="1" v-model="filterlevels">
+                    <label class="form-check-label" for="inlineCheckbox1">1</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="2" v-model="filterlevels">
+                    <label class="form-check-label" for="inlineCheckbox2">2</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="3" v-model="filterlevels">
+                    <label class="form-check-label" for="inlineCheckbox3">3</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value="4" v-model="filterlevels">
+                    <label class="form-check-label" for="inlineCheckbox4">4</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value="5" v-model="filterlevels">
+                    <label class="form-check-label" for="inlineCheckbox5">5</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value="6" v-model="filterlevels">
+                    <label class="form-check-label" for="inlineCheckbox6">6</label>
+                </div>
+                
+                <div class="form-check form-check-inline">
+                    <select class="form-control" id="exampleFormControlSelect1" v-model="vs_val">
+                        <option value="">--- 請選擇要顯示的分類 ---</option>
+                        <option value="生手變成生手vs生手變成專家">生手變成生手vs生手變成專家</option>
+                        <option value="專家變成專家vs生手變成生手">專家變成專家vs生手變成生手</option>
+                        <option value="專家變成專家vs生手變成專家">專家變成專家vs生手變成專家</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <template v-for="level in filterlevels">
+            <template v-for="(vs, idx) in filtervsval">
+                <album-component :props_vs='vs' :props_level='level' :props_key="idx + '-' + level" :key="idx + '-' + level" class="m-3"></album-component>
+            </template>
+        </template>
+    </div>
+    <script type="text/x-template" id="album-template">
+        <div>
+            <div class="w3-container text-center">
+                <h2>{{props_vs}}-第{{props_level}}關</h2>
+                <div class="mt-3 mb-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" :name="'inlineRadioOptions' + props_key" :id="'inlineRadio1-' + props_key" :value="1" v-model="slideIndex">
+                        <label class="form-check-label" :for="'inlineRadio1-' + props_key">AB 全部</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" :name="'inlineRadioOptions' + props_key" :id="'inlineRadio2-' + props_key" :value="2" v-model="slideIndex">
+                        <label class="form-check-label" :for="'inlineRadio2-' + props_key">A 特有</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" :name="'inlineRadioOptions' + props_key" :id="'inlineRadio3-' + props_key" :value="3" v-model="slideIndex">
+                        <label class="form-check-label" :for="'inlineRadio3-' + props_key">B 特有</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" :name="'inlineRadioOptions' + props_key" :id="'inlineRadio4-' + props_key" :value="4" v-model="slideIndex">
+                        <label class="form-check-label" :for="'inlineRadio4-' + props_key">AB 共有</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" :name="'inlineRadioOptions' + props_key" :id="'inlineRadio5-' + props_key" :value="5" v-model="slideIndex">
+                        <label class="form-check-label" :for="'inlineRadio5-' + props_key">A 全部</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" :name="'inlineRadioOptions' + props_key" :id="'inlineRadio6-' + props_key" :value="6" v-model="slideIndex">
+                        <label class="form-check-label" :for="'inlineRadio6-' + props_key">B 全部</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="w3-content w3-display-container">
+                <div class="w3-display-container " :class="{'mySlides': !slidesStatus[0]}">
+                    <div class="w3-display-topleft w3-large w3-container w3-padding-16 w3-white">
+                        A: {{vsArrInComp.A}} B: {{vsArrInComp.B}}
+                    </div>
+                    <img :src="'./img/' + props_vs +'-第' + props_level + '關/123.jpg'" style="width:100%">
+                    <div class="w3-display-bottomleft w3-large w3-container w3-padding-16 w3-white">
+                        AB 全部
+                    </div>
+                </div>
+                <div class="w3-display-container " :class="{'mySlides': !slidesStatus[1]}">
+                    <div class="w3-display-topleft w3-large w3-container w3-padding-16 w3-white">
+                        A: {{vsArrInComp.A}} B: {{vsArrInComp.B}}
+                    </div>
+                    <img :src="'./img/' + props_vs +'-第' + props_level + '關/1.jpg'" style="width:100%">
+                    <div class="w3-display-bottomleft w3-large w3-container w3-padding-16 w3-white">
+                        A 特有
+                    </div>
+                </div>
+                <div class="w3-display-container " :class="{'mySlides': !slidesStatus[2]}">
+                    <div class="w3-display-topleft w3-large w3-container w3-padding-16 w3-white">
+                        A: {{vsArrInComp.A}} B: {{vsArrInComp.B}}
+                    </div>
+                    <img :src="'./img/' + props_vs +'-第' + props_level + '關/2.jpg'" style="width:100%">
+                    <div class="w3-display-bottomleft w3-large w3-container w3-padding-16 w3-white">
+                        B 特有
+                    </div>
+                </div>
+                <div class="w3-display-container " :class="{'mySlides': !slidesStatus[3]}">
+                    <div class="w3-display-topleft w3-large w3-container w3-padding-16 w3-white">
+                        A: {{vsArrInComp.A}} B: {{vsArrInComp.B}}
+                    </div>
+                    <img :src="'./img/' + props_vs +'-第' + props_level + '關/3.jpg'" style="width:100%">
+                    <div class="w3-display-bottomleft w3-large w3-container w3-padding-16 w3-white">
+                        AB 共有
+                    </div>
+                </div>
+                <div class="w3-display-container " :class="{'mySlides': !slidesStatus[4]}">
+                    <div class="w3-display-topleft w3-large w3-container w3-padding-16 w3-white">
+                        A: {{vsArrInComp.A}} B: {{vsArrInComp.B}}
+                    </div>
+                    <img :src="'./img/' + props_vs +'-第' + props_level + '關/13.jpg'" style="width:100%">
+                    <div class="w3-display-bottomleft w3-large w3-container w3-padding-16 w3-white">
+                        A 全部
+                    </div>
+                </div>
+                <div class="w3-display-container" :class="{'mySlides': !slidesStatus[5]}">
+                    <div class="w3-display-topleft w3-large w3-container w3-padding-16 w3-white">
+                        A: {{vsArrInComp.A}} B: {{vsArrInComp.B}}
+                    </div>
+                    <img :src="'./img/' + props_vs +'-第' + props_level + '關/23.jpg'" style="width:100%">
+                    <div class="w3-display-bottomleft w3-large w3-container w3-padding-16 w3-white">
+                        B 全部
+                    </div>
+                </div>
+                <button class="w3-button w3-display-left w3-white" @click.prevent="plusDivs(-1)">&#10094;</button>
+                <button class="w3-button w3-display-right w3-white" @click.prevent="plusDivs(1)">&#10095;</button>
+            </div>
+        </div>
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue!',
+                vs_val: '',
+                vsArr: ['生手變成生手vs生手變成專家','專家變成專家vs生手變成生手','專家變成專家vs生手變成專家'],
+                levels: 6,
+                filterlevels: ['1', '2', '3', '4', '5', '6']
+            },
+            computed: {
+                filtervsval() {
+                    if (this.vs_val != "") {
+                        return [this.vs_val]
+                    } else {
+                        return ['生手變成生手vs生手變成專家','專家變成專家vs生手變成生手','專家變成專家vs生手變成專家'];
+                    }
+                }
+            },
+            methods: {
+                selectalllevels(){
+                    this.filterlevels = ['1', '2', '3', '4', '5', '6']
+                },
+                unselectalllevels(){
+                    this.filterlevels = []
+                }
+            },
+            components: {
+                'album-component': {
+                    template: "#album-template",
+                    props: ["props_vs", "props_level", "props_key"],
+                    data() {
+                        return {
+                            slideIndex: 1
+                        };
+                    },
+                    computed: {
+                        slidesStatus(){
+                            temp = [false, false, false, false, false, false]
+                            temp[this.slideIndex-1] = true
+                            return temp
+                        },
+                        vsArrInComp(){
+                            tempArray = this.props_vs.split('vs')
+                            return {A: tempArray[0], B: tempArray[1]}
+                        }
+                    },
+                    mounted() {
+                    },
+                    methods: {
+                        plusDivs(n) {
+                            if(n == 1){
+                                if(this.slideIndex < 6){
+                                    this.slideIndex += 1
+                                }else{
+                                    this.slideIndex = 1
+                                }
+                            }else{
+                                if(this.slideIndex > 1){
+                                    this.slideIndex -= 1
+                                }else{
+                                    this.slideIndex = 6
+                                }
+                            }
+                        }
+                    }
+                },
+            }
+        })
+    </script>
+</body>
+</html>
